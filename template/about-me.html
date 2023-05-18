@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<div id="page-header" class="ph-full ph-cap-lg ph-ghost-scroll ph-image-cropped ph-content-parallax">
+    <div class="page-header-inner tt-wrap">
+
+        <!-- Begin page header image
+        ============================= -->
+        <div class="ph-image">
+            <div class="ph-image-inner">
+                <img src="{% if about.img %}{{ about.img.url }}{% else %}{% static 'ali3.jpg' %}{% endif %}" alt="Image">
+            </div>
+        </div>
+        <!-- End page header image -->
+
+        <!-- Begin page header caption
+        ===============================
+        Use class "max-width-*" to set caption max width if needed. For example "max-width-1000". More info about helper classes can be found in the file "helper.css' %}".
+        -->
+        <div class="ph-caption max-width-1000">
+            <div class="ph-caption-subtitle">
+                <div class="ph-appear">Men haqimda</div>
+            </div>
+            <h1 class="ph-caption-title">
+                <div class="ph-appear">{% if about.name %}{{ about.name }}<br> {{ about.surname }}{% else %} Alijon <br> Haqberdi {% endif %}</div> <!-- You can use <br> to break a text line if needed -->
+            </h1>
+            <div class="ph-caption-title-ghost">
+                <div class="ph-appear">{% if about.name %} {{ about.name }} {{ about.surname }} {% else %}Alijon Haqberdi {% endif %}</div>
+            </div>
+        </div>
+        <!-- End page header caption -->
+
+    </div> <!-- /.page-header-inner -->
+
+
+</div>
+
+<div id="page-content">
+
+
+    <!-- =======================
+    ///// Begin tt-section /////
+    ============================
+    * You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css' %}".
+    -->
+    <div class="tt-section padding-bottom-xlg-150">
+        <div class="tt-section-inner tt-wrap max-width-900">
+
+            <div class="text-xxlg">
+                {% if about.description %}{{ about.description | safe }}{% else %}Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium animi aperiam dicta
+                    inventore, iure omnis quidem suscipit? Asperiores id quam tenetur? Commodi deserunt neque quibusdam.
+                    Consequatur eius ipsa magnam veniam? {% endif %}
+            </div>
+
+
+
+        </div> <!-- /.tt-section-inner -->
+    </div>
+    <!-- End tt-section -->
+
+
+    <!-- =======================
+    ///// Begin tt-section /////
+    ============================
+    * You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css' %}".
+    -->
+    <div class="tt-section padding-bottom-xlg-150">
+        <div class="tt-section-inner tt-wrap">
+
+            <!-- Begin page nav
+            ====================
+            * Use class "tt-pn-center" to align page nav to center.
+            * Use class "tt-pn-stroke" to enable title stroke style.
+            -->
+            <div class="tt-page-nav tt-pn-stroke tt-pn-center">
+                <a href="{% url 'homepage' %}" class="tt-pn-link anim-fadeinup"
+                   data-cursor="<i class='fas fa-arrow-right'></i>">
+                    <div class="tt-pn-title">Portfolio</div>
+                    <div class="tt-pn-hover-title">Portfolio</div>
+                </a> <!-- /.tt-pn-link -->
+                <div class="tt-pn-subtitle anim-fadeinup">Ish namunalar</div>
+            </div>
+            <!-- End page nav -->
+
+        </div> <!-- /.tt-section-inner -->
+    </div>
+    <!-- End tt-section -->
+
+
+</div>
+
+
+{% endblock content %}
+	

@@ -1,581 +1,322 @@
-<!DOCTYPE html>
-<html lang="en">{% load static %}
-<head>
-    <meta charset="utf-8">
-    <title>Alijon Haqberdiyev</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Free HTML Templates" name="keywords">
-    <meta content="Free HTML Templates" name="description">
+{% extends 'base.html' %}
+{% load static %}
+{% load tag %}
 
-    <!-- Favicon -->
-    <link href="{% static 'img/favicon.ico' %}" rel="icon">
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet"> 
+{% block content %}
 
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+<div id="page-header" class="ph-full ph-cap-xxlg ph-ghost-scroll ph-content-parallax">
+    <div class="page-header-inner tt-wrap">
 
-    <!-- Libraries Stylesheet -->
-    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
-    <link href="{% static 'lib/lightbox/css/lightbox.min.css' %}" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
-</head>
-
-<body data-spy="scroll" data-target=".navbar" data-offset="51">
-    <!-- Navbar Start -->
-    <nav class="navbar fixed-top shadow-sm navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-lg-5">
-        <a href="index.html" class="navbar-brand ml-lg-3">
-            <h1 class="m-0 display-5"><span class="text-primary">Alijon</span>Haqberdiyev</h1>
-        </a>
-        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse px-lg-3" id="navbarCollapse">
-            <div class="navbar-nav m-auto py-0">
-                <a href="#home" class="nav-item nav-link active">Home</a>
-                <a href="#about" class="nav-item nav-link">About</a>
-                <a href="#qualification" class="nav-item nav-link">Quality</a>
-                <a href="#skill" class="nav-item nav-link">Skill</a>
-                <a href="#service" class="nav-item nav-link">Service</a>
-                <a href="#portfolio" class="nav-item nav-link">Portfolio</a>
-                <a href="#testimonial" class="nav-item nav-link">Review</a>
-                <a href="#blog" class="nav-item nav-link">Blog</a>
-                <a href="#contact" class="nav-item nav-link">Contact</a>
+        <!-- Begin page header image
+        ============================= -->
+        <div class="ph-image">
+            <div class="ph-image-inner">
+                <img src="{% if home.head_img %} {{ home.head_img.url }} {% else %}{% static 'assets/img/demo/ph-demo.png' %}{% endif %}"
+                     alt="Image">
             </div>
         </div>
-    </nav>
-    <!-- Navbar End -->
 
-
-    <!-- Video Modal Start -->
-    <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>        
-                    <!-- 16:9 aspect ratio -->
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="" id="video"  allowscriptaccess="always" allow="autoplay"></iframe>
-                    </div>
+        <div class="ph-caption">
+            <div class="ph-caption-subtitle">
+                <div class="ph-appear">{% if home.title1 %} {{ home.title1 }} {% else %} Powerful {% endif %}</div>
+            </div>
+            <h1 class="ph-caption-title">
+                <div class="ph-appear">{% if home.title2 %} {{ home.title2 }} {% else %} MRIT {% endif %}</div>
+            </h1>
+            <div class="ph-caption-title-ghost">
+                <div class="ph-appear">Website</div>
+            </div>
+            <div class="ph-caption-description">
+                <div class="ph-appear">{% if home.title_discription %} {{ home.title_discription }} {% else %}MRIT is a
+                    Creative Portfolio Showcase HTML Website Template. Created with care to highlight your creativity
+                    and uniquely promote your services. <em>Dark & Light</em> style included.{% endif %}
                 </div>
             </div>
+            <a href="{% if home.contact %} {{ home.contact.link }} {% else %}https://t.me/samarkand_coder{% endif %}"
+               class="tt-btn tt-btn-primary tt-btn-round margin-top-40 ph-appear" target="_blank" rel="noopener">
+                <div data-hover="{% if home.header_buy_hover %} {{ home.header_buy_hover }} {% else %}Aloqa{% endif %}">
+                    {% if home.header_buy %} {{ home.header_buy }} {% else %}Dasturchi{% endif %}
+                </div>
+            </a>
         </div>
-    </div>
-    <!-- Video Modal End -->
+        <!-- End page header caption -->
+
+    </div> <!-- /.page-header-inner -->
+
+</div>
+
+<div id="page-content">
+    {% if product %}
+    <div class="tt-section padding-top-xlg-150 padding-bottom-xlg-150 bg-white-accent-4">
+        <div class="tt-section-inner tt-wrap max-width-1700">
 
 
-    <!-- Header Start -->
-    <div class="container-fluid bg-primary d-flex align-items-center mb-5 py-5" id="home" style="min-height: 100vh;">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-5 px-5 pl-lg-0 pb-5 pb-lg-0">
-                    <img class="img-fluid w-100 rounded-circle shadow-sm" src="{{ profile.home_img.url }}" alt="">
-                </div>
-                <div class="col-lg-7 text-center text-lg-left">
-                    <h3 class="text-white font-weight-normal mb-3">I'm</h3>
-                    <h1 class="display-3 text-uppercase text-primary mb-2" style="-webkit-text-stroke: 2px #ffffff;">{{profile.name}}</h1>
-                    <h1 class="typed-text-output d-inline font-weight-lighter text-white"></h1>
-                    <div class="typed-text d-none">{{ profile.currently }}</div>
-                    <div class="d-flex align-items-center justify-content-center justify-content-lg-start pt-5">
-                        <a href="" class="btn btn-outline-light mr-5">Download CV</a>
-                        <button type="button" class="btn-play" data-toggle="modal"
-                            data-src="https://www.youtube.com/embed/2W7lvbLIlp4" data-target="#videoModal">
-                            <span></span>
-                        </button>
-                        <h5 class="font-weight-normal text-white m-0 ml-4 d-none d-sm-block">Play Video</h5>
-                    </div>
-                </div>
+            <div class="tt-heading tt-heading-xlg margin-bottom-120 margin-left-lg-13-p anim-fadeinup">
+                <h3 class="tt-heading-subtitle">{% if home.portfolio_h3 %} {{ home.portfolio_h3 }} {% else %} Stylish &
+                    Flexible {% endif %}</h3>
+                <h2 class="tt-heading-title">{% if home.portfolio_h2 %} {{ home.portfolio_h2 }} {% else %} Explore Demos
+                    {% endif %}</h2> <!-- You can use <br> to break a text line if needed -->
             </div>
-        </div>
-    </div>
-    <!-- Header End -->
+            <!-- End tt-Heading -->
 
 
-    <!-- About Start -->
-    <div class="container-fluid py-5" id="about">
-        <div class="container">
-            <div class="position-relative d-flex align-items-center justify-content-center">
-                <h1 class="display-1 text-uppercase text-white" style="-webkit-text-stroke: 1px #dee2e6;">About</h1>
-                <h1 class="position-absolute text-uppercase text-primary">About Me</h1>
-            </div>
-            <div class="row align-items-center">
-                <div class="col-lg-5 pb-4 pb-lg-0">
-                    <img class="img-fluid rounded w-100" src="{{ profile.about_img.url }}" alt="">
-                </div>
-                <div class="col-lg-7">
-                    <h3 class="mb-4">UI/UX Designer & Web Developer</h3>
-                    <p>Tempor eos dolore amet tempor dolor tempor. Dolore ea magna sit amet dolor eirmod. Eos ipsum est tempor dolor. Clita lorem kasd sed ea lorem diam ea lorem eirmod duo sit ipsum. Amet dolor stet lorem diam dolor justo et dolor dolor dolor</p>
-                    <div class="row mb-3">
-                        <div class="col-sm-6 py-2"><h6>Name: <span class="text-secondary">{{ profile.name }}</span></h6></div>
-                        <div class="col-sm-6 py-2"><h6>Birthday: <span class="text-secondary">{{ profile.brithday }}</span></h6></div>
-                        <div class="col-sm-6 py-2"><h6>Degree: <span class="text-secondary">{{ profile.degree }}</span></h6></div>
-                        <div class="col-sm-6 py-2"><h6>Experience: <span class="text-secondary">{{ profile.experience }}</span></h6></div>
-                        <div class="col-sm-6 py-2"><h6>Phone: <span class="text-secondary">{{ profile.phone }}</span></h6></div>
-                        <div class="col-sm-6 py-2"><h6>Email: <span class="text-secondary">{{ profile.email }}</span></h6></div>
-                        <div class="col-sm-6 py-2"><h6>Address: <span class="text-secondary">{{ profile.address }}</span></h6></div>
-                        <div class="col-sm-6 py-2"><h6>Freelance: <span class="text-secondary">{{ profile.frilance }}</span></h6></div>
-                    </div>
-                    <a href="" class="btn btn-outline-primary">Learn More</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- About End -->
+            <div id="portfolio-grid">
+
+                <div class="tt-grid ttgr-layout-3 ttgr-gap-3 ttgr-not-cropped">
 
 
-    <!-- Qualification Start -->
-    <div class="container-fluid py-5" id="qualification">
-        <div class="container">
-            <div class="position-relative d-flex align-items-center justify-content-center">
-                <h1 class="display-1 text-uppercase text-white" style="-webkit-text-stroke: 1px #dee2e6;">Quality</h1>
-                <h1 class="position-absolute text-uppercase text-primary">Education & Expericence</h1>
-            </div>
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="border-left border-primary pt-2 pl-4 ml-2">
-                        <div class="position-relative mb-4">
-                            <i class="far fa-dot-circle text-primary position-absolute" style="top: 2px; left: -32px;"></i>
-                            <h5 class="font-weight-bold mb-1">Secondary education</h5>
-                            <p class="mb-2"><strong>Secondary education</strong> | <small>2010 - 2021</small></p>
-                            <p>I am an active student in the 11-year 23rd general secondary school, one of the class leaders in basic
-                                subjects, and I actively participated in school festivals, celebrations, and events, and graduated with
-                                excellent grades.</p>
-                        </div>
-                        <div class="position-relative mb-4">
-                            <i class="far fa-dot-circle text-primary position-absolute" style="top: 2px; left: -32px;"></i>
-                            <h5 class="font-weight-bold mb-1">Furniture Maker</h5>
-                            <p class="mb-2"><strong>Imron Furniture</strong> | <small>2019 - 2022</small></p>
-                            <p>In 2019, I started my first job as an ordinary worker in the Imran furniture company,
-                                and in this company I learned the positions of furniture installer, furniture painter,
-                                and furniture accountant. and I left this company in 2022</p>
-                        </div>
-                        <div class="position-relative mb-4">
-                            <i class="far fa-dot-circle text-primary position-absolute" style="top: 2px; left: -32px;"></i>
-                            <h5 class="font-weight-bold mb-1">Entry into the IT industry</h5>
-                            <p class="mb-2"><strong>IT Park Frontend</strong> | <small>2021 - 2022</small></p>
-                            <p>I started studying frontend course 2021 and from this course I learned html, scc,
-                                javascript technology and many things related to internet, web, computer, programming,
-                                systems, security and other IT related</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="border-left border-primary pt-2 pl-4 ml-2">
-                        <div class="position-relative mb-4">
-                            <i class="far fa-dot-circle text-primary position-absolute" style="top: 2px; left: -32px;"></i>
-                            <h5 class="font-weight-bold mb-1">Step Into Backend Programming</h5>
-                            <p class="mb-2"><strong>IT Park</strong> | <small>2022 - 2023</small></p>
-                            <p>At the beginning of 2022, I started studying backend programming, and during my studies,
-                                I understood and applied the whole system, how the programs work. Among the technologies
-                                I learned, the most important ones are working with servers, database, API, version control
-                                and programming. I gained knowledge about languages</p>
-                        </div>
-                        <div class="position-relative mb-4">
-                            <i class="far fa-dot-circle text-primary position-absolute" style="top: 2px; left: -32px;"></i>
-                            <h5 class="font-weight-bold mb-1">Step Into FullStack Programming</h5>
-                            <p class="mb-2"><strong>Frilanser</strong> | <small>2023 - Now</small></p>
-                            <p>In order to put into practice the knowledge I learned in 2023, that is,
-                                my knowledge of frontend and backend, I joined MRIT as a junior full stack.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Qualification End -->
+                    <div class="tt-grid-items-wrap isotope-items-wrap">
+                        {% for i in product %}
+                        <div class="tt-grid-item isotope-item pages">
+                            <div class="ttgr-item-inner">
+                                <div class="portfolio-grid-item">
+                                    <a href="{% url 'detail_post' i.pk %}" class="pgi-image-wrap"
+                                       data-cursor="View<br>Demo" rel="noopener">
+                                        <div class="pgi-image-holder">
+                                            <div class="pgi-image-inner anim-zoomin">
+                                                <figure class="pgi-image ttgr-height">
+                                                    <img src="{{ i.img.url }}" class="tt-demo-dark-img" alt="image">
+                                                    <img src="{{ i.img.url }}" class="tt-demo-light-img" alt="image">
+                                                </figure> <!-- /.pgi-image -->
+                                                <i class="fa-solid fa-eye" style="color: #ffffff; margin: 10px;"></i>:
+                                                {{ i.view }}
+                                            </div> <!-- /.pgi-image-inner -->
+                                        </div> <!-- /.pgi-image-holder -->
+                                    </a> <!-- /.pgi-image-wrap -->
 
+                                    <div class="pgi-caption">
+                                        <div class="pgi-caption-inner">
+                                            <h2 class="pgi-title">
+                                                <a href="{% url 'detail_post' i.pk %}" rel="noopener">{{ i.name }}</a>
+                                            </h2>
+                                            <div class="pgi-categories-wrap">
+                                                <div class="pgi-category">{{ i.category }}</div>
+                                                <!-- <div class="pgi-category">Varia</div> -->
+                                            </div> <!-- /.pli-categories-wrap -->
+                                        </div> <!-- /.pgi-caption-inner -->
+                                    </div> <!-- /.pgi-caption -->
 
-    <!-- Skill Start -->
-    <div class="container-fluid py-5" id="skill">
-        <div class="container">
-            <div class="position-relative d-flex align-items-center justify-content-center">
-                <h1 class="display-1 text-uppercase text-white" style="-webkit-text-stroke: 1px #dee2e6;">Skills</h1>
-                <h1 class="position-absolute text-uppercase text-primary">My Skills</h1>
-            </div>
-            <div class="row align-items-center">
-                {% for i in profile.skills.all %}
-                <div class="col-md-6">
-                    <div class="skill mb-4">
-                        <div class="d-flex justify-content-between">
-                            <h6 class="font-weight-bold">{{ i.name }}</h6>
-                            <h6 class="font-weight-bold">{{ i.level }}%</h6>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="{{ i.level }}" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-    <!-- Skill End -->
-
-
-    <!-- Services Start -->
-    <div class="container-fluid pt-5" id="service">
-        <div class="container">
-            <div class="position-relative d-flex align-items-center justify-content-center">
-                <h1 class="display-1 text-uppercase text-white" style="-webkit-text-stroke: 1px #dee2e6;">Service</h1>
-                <h1 class="position-absolute text-uppercase text-primary">My Services</h1>
-            </div>
-            <div class="row pb-3">
-                <div class="col-lg-4 col-md-6 text-center mb-5">
-                    <div class="d-flex align-items-center justify-content-center mb-4">
-                        <i class="fa fa-2x fa-laptop service-icon bg-primary text-white mr-3"></i>
-                        <h4 class="font-weight-bold m-0">Web Design</h4>
-                    </div>
-                    <p>Web design is the process of creating visually appealing, functional, and user-friendly
-                        websites. It involves various elements, including layout, color scheme, typography, graphics,
-                        images, and interactive features.
-                    Effective web design requires a deep understanding of the target audience, their needs and preferences,
-                        and the purpose of the website. It also involves the use of various tools and technologies, such as HTML,
-                        CSS, JavaScript, and content management systems (CMS).</p>
-                    <a class="border-bottom border-primary text-decoration-none" href="">Read More</a>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center mb-5">
-                    <div class="d-flex align-items-center justify-content-center mb-4">
-                        <i class="fa fa-2x fa-laptop-code service-icon bg-primary text-white mr-3"></i>
-                        <h4 class="font-weight-bold m-0">Web Development</h4>
-                    </div>
-                    <p>Web development is the process of building and maintaining websites and web applications.
-                        It involves various aspects, including web design, programming, content creation, and server-side
-                        configurations.
-
-Web developers use programming languages such as HTML, CSS, JavaScript, PHP, and Python, among others,
-                        to create websites and web applications. They also use frameworks and libraries
-                        such as AngularJS, ReactJS, VueJS, and jQuery to simplify development and improve productivity.</p>
-                    <a class="border-bottom border-primary text-decoration-none" href="">Read More</a>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center mb-5">
-                    <div class="d-flex align-items-center justify-content-center mb-4">
-                        <i class="fab fa-2x fa-android service-icon bg-primary text-white mr-3"></i>
-                        <h4 class="font-weight-bold m-0">Apps Design</h4>
-                    </div>
-                    <p>App design refers to the process of creating and designing the user interface and user experience of
-                        mobile applications. It involves designing the look and feel of the app, including its layout, colors,
-                        typography, icons, and interactive elements.
-
-App design plays a critical role in the success of a mobile application. A well-designed app can enhance user engagement, increase
-                        user satisfaction, and drive adoption and retention rates.</p>
-                    <a class="border-bottom border-primary text-decoration-none" href="">Read More</a>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center mb-5">
-                    <div class="d-flex align-items-center justify-content-center mb-4">
-                        <i class="fab fa-2x fa-apple service-icon bg-primary text-white mr-3"></i>
-                        <h4 class="font-weight-bold m-0">Apps Development</h4>
-                    </div>
-                    <p>App development refers to the process of creating and building mobile applications for various platforms
-                        such as iOS and Android. It involves various aspects, including designing the user interface, programming,
-                        integrating features and functionalities, testing, and deploying the app to the app store.
-
-App developers use programming languages such as Swift, Objective-C, Java, Kotlin, and React Native, among others, to create mobile
-                        applications. They also use various tools and frameworks to streamline development and improve productivity.</p>
-                    <a class="border-bottom border-primary text-decoration-none" href="">Read More</a>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center mb-5">
-                    <div class="d-flex align-items-center justify-content-center mb-4">
-                        <i class="fa fa-2x fa-search service-icon bg-primary text-white mr-3"></i>
-                        <h4 class="font-weight-bold m-0">SEO</h4>
-                    </div>
-                    <p>SEO stands for Search Engine Optimization. It is the process of improving the visibility and ranking of a website
-                        or web page in search engine results pages (SERPs) such as Google, Bing, and Yahoo.
-
-The goal of SEO is to drive organic (unpaid) traffic to a website by improving its visibility and ranking for relevant search queries.
-                        This is done through various techniques, including optimizing the website's content and structure, building backlinks
-                        from other websites, and using keywords and phrases that are relevant to the website's content.</p>
-                    <a class="border-bottom border-primary text-decoration-none" href="">Read More</a>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center mb-5">
-                    <div class="d-flex align-items-center justify-content-center mb-4">
-                        <i class="fa fa-2x fa-edit service-icon bg-primary text-white mr-3"></i>
-                        <h4 class="font-weight-bold m-0">Content Creating</h4>
-                    </div>
-                    <p>Content creation refers to the process of producing and publishing content that is intended to inform,
-                        educate, entertain, or persuade a target audience. This content can take many forms, including blog posts,
-                        articles, videos, podcasts, social media posts, and more.
-
-Effective content creation requires a deep understanding of the target audience, their needs and preferences, and the purpose of
-                        the content. It also involves creating content that is engaging, informative, and relevant to the target audience.</p>
-                    <a class="border-bottom border-primary text-decoration-none" href="">Read More</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Services End -->
-
-
-    <!-- Portfolio Start -->
-    <div class="container-fluid pt-5 pb-3" id="portfolio">
-        <div class="container">
-            <div class="position-relative d-flex align-items-center justify-content-center">
-                <h1 class="display-1 text-uppercase text-white" style="-webkit-text-stroke: 1px #dee2e6;">Gallery</h1>
-                <h1 class="position-absolute text-uppercase text-primary">My Portfolio</h1>
-            </div>
-            <div class="row">
-                <div class="col-12 text-center mb-2">
-                    <ul class="list-inline mb-4" id="portfolio-flters">
-                        <li class="btn btn-sm btn-outline-primary m-1 active"  data-filter="*">All</li>
-                        <li class="btn btn-sm btn-outline-primary m-1" data-filter=".first">Design</li>
-                        <li class="btn btn-sm btn-outline-primary m-1" data-filter=".second">Development</li>
-                        <li class="btn btn-sm btn-outline-primary m-1" data-filter=".third">Marketing</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row portfolio-container">
-                <div class="col-lg-4 col-md-6 mb-4 portfolio-item first">
-                    <div class="position-relative overflow-hidden mb-2">
-                        <img class="img-fluid rounded w-100" src="{% static 'img/portfolio-1.jpg' %}" alt="">
-                        <div class="portfolio-btn bg-primary d-flex align-items-center justify-content-center">
-                            <a href="{% static 'img/portfolio-1.jpg' %}" data-lightbox="portfolio">
-                                <i class="fa fa-plus text-white" style="font-size: 60px;"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4 portfolio-item second">
-                    <div class="position-relative overflow-hidden mb-2">
-                        <img class="img-fluid rounded w-100" src="{% static 'img/portfolio-2.jpg' %}" alt="">
-                        <div class="portfolio-btn bg-primary d-flex align-items-center justify-content-center">
-                            <a href="{% static 'img/portfolio-2.jpg' %}" data-lightbox="portfolio">
-                                <i class="fa fa-plus text-white" style="font-size: 60px;"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4 portfolio-item third">
-                    <div class="position-relative overflow-hidden mb-2">
-                        <img class="img-fluid rounded w-100" src="{% static 'img/portfolio-3.jpg' %}" alt="">
-                        <div class="portfolio-btn bg-primary d-flex align-items-center justify-content-center">
-                            <a href="{% static 'img/portfolio-3.jpg' %}" data-lightbox="portfolio">
-                                <i class="fa fa-plus text-white" style="font-size: 60px;"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4 portfolio-item first">
-                    <div class="position-relative overflow-hidden mb-2">
-                        <img class="img-fluid rounded w-100" src="{% static 'img/portfolio-4.jpg' %}" alt="">
-                        <div class="portfolio-btn bg-primary d-flex align-items-center justify-content-center">
-                            <a href="{% static 'img/portfolio-4.jpg' %}" data-lightbox="portfolio">
-                                <i class="fa fa-plus text-white" style="font-size: 60px;"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4 portfolio-item second">
-                    <div class="position-relative overflow-hidden mb-2">
-                        <img class="img-fluid rounded w-100" src="{% static 'img/portfolio-5.jpg' %}" alt="">
-                        <div class="portfolio-btn bg-primary d-flex align-items-center justify-content-center">
-                            <a href="{% static 'img/portfolio-5.jpg' %}" data-lightbox="portfolio">
-                                <i class="fa fa-plus text-white" style="font-size: 60px;"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4 portfolio-item third">
-                    <div class="position-relative overflow-hidden mb-2">
-                        <img class="img-fluid rounded w-100" src="{% static 'img/portfolio-6.jpg' %}" alt="">
-                        <div class="portfolio-btn bg-primary d-flex align-items-center justify-content-center">
-                            <a href="{% static 'img/portfolio-6.jpg' %}" data-lightbox="portfolio">
-                                <i class="fa fa-plus text-white" style="font-size: 60px;"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Portfolio End -->
-
-
-    <!-- Testimonial Start -->
-    <div class="container-fluid py-5" id="testimonial">
-        <div class="container">
-            <div class="position-relative d-flex align-items-center justify-content-center">
-                <h1 class="display-1 text-uppercase text-white" style="-webkit-text-stroke: 1px #dee2e6;">Review</h1>
-                <h1 class="position-absolute text-uppercase text-primary">Clients Say</h1>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="owl-carousel testimonial-carousel">
-                        <div class="text-center">
-                            <i class="fa fa-3x fa-quote-left text-primary mb-4"></i>
-                            <h4 class="font-weight-light mb-4">Dolor eirmod diam stet kasd sed. Aliqu rebum est eos. Rebum elitr dolore et eos labore, stet justo sed est sed. Diam sed sed dolor stet accusam amet eirmod eos, labore diam clita</h4>
-                            <img class="img-fluid rounded-circle mx-auto mb-3" src="{% static 'img/testimonial-1.jpg' %}" style="width: 80px; height: 80px;">
-                            <h5 class="font-weight-bold m-0">Client Name</h5>
-                            <span>Profession</span>
-                        </div>
-                        <div class="text-center">
-                            <i class="fa fa-3x fa-quote-left text-primary mb-4"></i>
-                            <h4 class="font-weight-light mb-4">Dolor eirmod diam stet kasd sed. Aliqu rebum est eos. Rebum elitr dolore et eos labore, stet justo sed est sed. Diam sed sed dolor stet accusam amet eirmod eos, labore diam clita</h4>
-                            <img class="img-fluid rounded-circle mx-auto mb-3" src="{% static 'img/testimonial-2.jpg' %}" style="width: 80px; height: 80px;">
-                            <h5 class="font-weight-bold m-0">Client Name</h5>
-                            <span>Profession</span>
-                        </div>
-                        <div class="text-center">
-                            <i class="fa fa-3x fa-quote-left text-primary mb-4"></i>
-                            <h4 class="font-weight-light mb-4">Dolor eirmod diam stet kasd sed. Aliqu rebum est eos. Rebum elitr dolore et eos labore, stet justo sed est sed. Diam sed sed dolor stet accusam amet eirmod eos, labore diam clita</h4>
-                            <img class="img-fluid rounded-circle mx-auto mb-3" src="{% static 'img/testimonial-3.jpg' %}" style="width: 80px; height: 80px;">
-                            <h5 class="font-weight-bold m-0">Client Name</h5>
-                            <span>Profession</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Testimonial End -->
-
-
-    <!-- Blog Start -->
-    <div class="container-fluid pt-5" id="blog">
-        <div class="container">
-            <div class="position-relative d-flex align-items-center justify-content-center">
-                <h1 class="display-1 text-uppercase text-white" style="-webkit-text-stroke: 1px #dee2e6;">Blog</h1>
-                <h1 class="position-absolute text-uppercase text-primary">Latest Blog</h1>
-            </div>
-            <div class="row">
-                <div class="col-lg-4 mb-5">
-                    <div class="position-relative mb-4">
-                        <img class="img-fluid rounded w-100" src="{% static 'img/blog-1.jpg' %}" alt="">
-                        <div class="blog-date">
-                            <h4 class="font-weight-bold mb-n1">01</h4>
-                            <small class="text-white text-uppercase">Jan</small>
-                        </div>
-                    </div>
-                    <h5 class="font-weight-medium mb-4">Rebum lorem no eos ut ipsum diam tempor sed rebum elitr ipsum</h5>
-                    <a class="btn btn-sm btn-outline-primary py-2" href="">Read More</a>
-                </div>
-                <div class="col-lg-4 mb-5">
-                    <div class="position-relative mb-4">
-                        <img class="img-fluid rounded w-100" src="{% static 'img/blog-2.jpg' %}" alt="">
-                        <div class="blog-date">
-                            <h4 class="font-weight-bold mb-n1">01</h4>
-                            <small class="text-white text-uppercase">Jan</small>
-                        </div>
-                    </div>
-                    <h5 class="font-weight-medium mb-4">Rebum lorem no eos ut ipsum diam tempor sed rebum elitr ipsum</h5>
-                    <a class="btn btn-sm btn-outline-primary py-2" href="">Read More</a>
-                </div>
-                <div class="col-lg-4 mb-5">
-                    <div class="position-relative mb-4">
-                        <img class="img-fluid rounded w-100" src="{% static 'img/blog-3.jpg' %}" alt="">
-                        <div class="blog-date">
-                            <h4 class="font-weight-bold mb-n1">01</h4>
-                            <small class="text-white text-uppercase">Jan</small>
-                        </div>
-                    </div>
-                    <h5 class="font-weight-medium mb-4">Rebum lorem no eos ut ipsum diam tempor sed rebum elitr ipsum</h5>
-                    <a class="btn btn-sm btn-outline-primary py-2" href="">Read More</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Blog End -->
-
-
-    <!-- Contact Start -->
-    <div class="container-fluid py-5" id="contact">
-        <div class="container">
-            <div class="position-relative d-flex align-items-center justify-content-center">
-                <h1 class="display-1 text-uppercase text-white" style="-webkit-text-stroke: 1px #dee2e6;">Contact</h1>
-                <h1 class="position-absolute text-uppercase text-primary">Contact Me</h1>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="contact-form text-center">
-                        <div id="success"></div>
-                        <form action="{% url 'home' %}" novalidate="novalidate" method="post">{% csrf_token %}
-                            <div class="form-row">
-                                <div class="control-group col-sm-6">
-                                    <input type="text" class="form-control p-4" id="name" placeholder="Your Name"
-                                        required="required" data-validation-required-message="Please enter your name" name="name"/>
-                                    <p class="help-block text-danger"></p>
                                 </div>
-                                <div class="control-group col-sm-6">
-                                    <input type="email" class="form-control p-4" id="email" placeholder="Your Email"
-                                        required="required" data-validation-required-message="Please enter your email" name="email"/>
-                                    <p class="help-block text-danger"></p>
-                                </div>
+
                             </div>
-                            <div class="control-group">
-                                <input type="text" class="form-control p-4" id="subject" placeholder="Subject"
-                                    required="required" data-validation-required-message="Please enter a subject" name="subject"/>
-                                <p class="help-block text-danger"></p>
-                            </div>
-                            <div class="control-group">
-                                <textarea class="form-control py-3 px-4" rows="5" id="message" placeholder="Message"
-                                    required="required"
-                                    data-validation-required-message="Please enter your message" name="text"></textarea>
-                                <p class="help-block text-danger"></p>
-                            </div>
-                            <div>
-                                <button class="btn btn-outline-primary" type="submit" id="sendMessageButton">Send
-                                    Message</button>
-                            </div>
-                        </form>
+                        </div>
+                        {% endfor %}
                     </div>
+
+                </div>
+                <!-- End tt-Grid -->
+            </div>
+            <!-- End portfolio grid -->
+
+
+            <!-- Begin tt-pagination (uncomment below code if you want to use pagination)
+            =========================
+            * Use class "tt-pagin-center" to align center.
+            -->
+
+            <div class="tt-pagination tt-pagin-center anim-fadeinup">
+                {% if product.has_previous %}
+                <div class="tt-pagin-prev">
+                    <a href="?page={{ product.previous_page_number }}" class="tt-pagin-item magnetic-item"><i
+                            class="fas fa-chevron-left"></i></a>
+                </div>
+                <div class="tt-pagin-numbers">
+                    <a href="?page=1" class="tt-pagin-item magnetic-item">1</a>
+                    {% else %}
+                    <div class="tt-pagin-numbers">
+                        {% endif %}
+
+                        {% if product.number|add:'-3' > 1 %}
+                        <a class="tt-pagin-item magnetic-item">...</a>
+                        {% endif %}
+
+                        {% if product.number|add:'-2' > 1 %}
+                        <a class="tt-pagin-item magnetic-item" href="?page={{ product.number|add:'-2' }}">{{ product.number|add:'-2' }}</a>
+                        {% endif %}
+
+                        {% if product.number|add:'-1' > 1 %}
+                        <a class="tt-pagin-item magnetic-item" href="?page={{ product.number|add:'-1' }}">{{ product.number|add:'-1' }}</a>
+                        {% endif %}
+
+                        <a class="tt-pagin-item magnetic-item active">{{ product.number }}</a>
+
+                        {% if product.number < product.paginator.num_pages|add:'-1' %}
+                        <a class="tt-pagin-item magnetic-item" href="?page={{ product.number|add:'1' }}">{{ product.number|add:'1' }}</a>
+                        {% endif %}
+
+                        {% if product.number < product.paginator.num_pages|add:'-2' %}
+                        <a class="tt-pagin-item magnetic-item" href="?page={{ product.number|add:'2' }}">{{ product.number|add:'2' }}</a>
+                        {% endif %}
+
+                        {% if product.number < product.paginator.num_pages|add:'-3' %}
+                        <a class="tt-pagin-item magnetic-item">...</a>
+                        {% endif %}
+
+                        {% if product.has_next %}
+                        <a class="tt-pagin-item magnetic-item" href="?page={{ product.paginator.num_pages }}">
+                            {{ product.paginator.num_pages }}</a>
+                    </div>
+                    <div class="tt-pagin-next">
+                        <a href="?page={{ product.next_page_number }}"
+                           class="tt-pagin-item tt-pagin-next magnetic-item"><i class="fas fa-chevron-right"></i></a>
+                    </div>
+                    {% endif %}
+                </div>
+                <!-- End tt-pagination -->
+
+            </div> <!-- /.tt-section-inner -->
+        </div>
+    </div>
+    {% else %}
+    <center><h1>Malumotlar Topilmadi</h1></center>
+    {% endif %}
+    <!-- End tt-section -->
+
+
+    <!-- =======================
+    ///// Begin tt-section /////
+    ============================
+    * You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css' %}".
+    -->
+    <div class="tt-section padding-bottom-xlg-150">
+        <div class="tt-section-inner tt-wrap">
+
+            <!-- Begin page nav
+            ====================
+            * Use class "tt-pn-center" to align page nav to center.
+            * Use class "tt-pn-stroke" to enable title stroke style.
+            -->
+            <div class="tt-page-nav tt-pn-stroke tt-pn-center">
+                <a href="{% if home.title_footer_link %}{{ home.title_footer_link }}{% else %}https://t.me/samarkand_coder{% endif %}"
+                   class="tt-pn-link anim-fadeinup" target="_blank" rel="noopener"
+                   data-cursor="<i class='fas fa-arrow-down'></i>">
+                    <div class="tt-pn-title">{% if home.title_footer %}{{ home.title_footer }}{% else %}--> Buyurtma
+                        <--{% endif %}
+                    </div>
+                    <div class="tt-pn-hover-title">{% if home.title_footer_hover %}{{ home.title_footer_hover }}{% else
+                        %}Aloqaga chiqish{% endif %}
+                    </div>
+                </a> <!-- /.tt-pn-link -->
+                <div class="tt-pn-subtitle anim-fadeinup">{% if home.subtitle %}{{ home.subtitle }}{% else %}Siz ham
+                    veb-saytingizni yarating!{% endif %}
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- Contact End -->
+            <!-- End page nav -->
+            <div class="tt-sliding-sidebar-wrap">
+                <div class="tt-sliding-sidebar">
+                    <div class="tt-sliding-sidebar-inner">
+
+                        <!-- Begin sidebar widget -->
+                        <div class="sidebar-widget sidebar-search">
+                            <h3 class="sidebar-heading">Qidiruv</h3>
 
 
-    <!-- Footer Start -->
-    <div class="container-fluid bg-primary text-white mt-5 py-5 px-sm-3 px-md-5">
-        <div class="container text-center py-5">
-            <div class="d-flex justify-content-center mb-4">
-                <a class="btn btn-light btn-social mr-2" href="#"><i class="fab fa-twitter"></i></a>
-                <a class="btn btn-light btn-social mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                <a class="btn btn-light btn-social mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                <a class="btn btn-light btn-social" href="#"><i class="fab fa-instagram"></i></a>
+                            <form action="{% url 'search' %}">{% csrf_token %}
+                                <div class="tt-form-btn-inside">
+                                    <input class="tt-form-control" type="text" id="search"
+                                           placeholder="Biror narsani yozing va Enter tugmasini bosing" required
+                                           name="search">
+                                    <button type="submit"><i class="fas fa-search"></i></button>
+                                </div>
+                            </form>
+                            <!-- End form -->
+
+                        </div>
+                        <!-- End sidebar widget -->
+
+                        <!-- Begin sidebar widget -->
+                        <div class="sidebar-widget sidebar-categories">
+                            <h3 class="sidebar-heading">Categories</h3>
+                            <ul class="list-unstyled">
+                                {% for i in category %}
+                                <li><a href="{% url 'categories' i.pk %}">{{ i.name }} <span
+                                        title="Entries in this category">{{ i.portfolio_set.all | length }}</span></a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <!-- End sidebar widget -->
+
+                        <!-- Begin sidebar widget -->
+                        <div class="sidebar-widget sidebar-post-list">
+                            <!-- Can be "Recent Posts" or "Popular Posts" etc. -->
+                            <h3 class="sidebar-heading">Popular Posts</h3>
+                            <ul class="list-unstyled">
+                                {% for i in popular %} <hr>
+                                <li>
+                                    <div class="sidebar-post-data">
+                                        <h5 class="sidebar-post-title"><a href="{% url 'detail_post' i.pk %}"
+                                                                          style="font-size: 25px">{{ i.name }}</a></h5>
+                                        <span class="sidebar-post-author">By: {% for x in i.coloborator.all %}<a
+                                                href="{% url 'author' x.pk %}">{{ x.name }}</a>, &nbsp {% endfor %}</span>
+                                        <span class="sidebar-post-date">{{ i.created | vaqt }} oldin</span>
+                                    </div>
+                                </li>
+
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <!-- End sidebar widget -->
+
+                        <!-- Begin sidebar widget -->
+                        <div class="sidebar-widget sidebar-comments-list">
+                            <h3 class="sidebar-heading">Recent Comments</h3>
+                            <ul class="list-unstyled">
+                                {% for t in comment %}<hr>
+                                <li class="sidebar-comment">
+                                    <div class="sidebar-comment-meta">
+                                        <div class="sidebar-comment-data">
+                                            <span class="sidebar-comment-author"><a href="{% url 'detail_post' t.post.pk %}">{{ t.user }}</a></span>
+                                            <span class="sidebar-comment-date">{{ t.created }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="sidebar-comment-text">
+                                        {{ t.body | slice:":50" }}
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <!-- End sidebar widget -->
+
+                        <!-- Begin sidebar widget -->
+                        <div class="sidebar-widget sidebar-tags">
+                            <h3 class="sidebar-heading">Tags</h3>
+                            <div class="sidebar-tags-list">
+                                <ul>
+                                    {% for i in tag %}
+                                    <li><a href="{% url 'tagname' i.pk %}">#{{ i.name }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div> <!-- /.sidebar-tags-list -->
+                        </div>
+                        <!-- End sidebar widget -->
+
+                    </div> <!-- /.tt-sliding-sidebar-inner -->
+                </div> <!-- /.tt-sliding-sidebar -->
+
+                <!-- Begin sliding sidebar trigger -->
+                <div class="tt-sliding-sidebar-trigger hide-cursor">
+                    <span class="tt-ss-icon"><i class="fas fa-bars"></i></span>
+                    <span class="tt-ss-icon-close"><i class="fas fa-times"></i></span>
+                </div>
+                <!-- End sliding sidebar trigger -->
+
+                <!-- Close overlay -->
+                <div class="tt-sliding-sidebar-close cursor-close"></div>
+
             </div>
-            <div class="d-flex justify-content-center mb-3">
-                <a class="text-white" href="#">Privacy</a>
-                <span class="px-3">|</span>
-                <a class="text-white" href="#">Terms</a>
-                <span class="px-3">|</span>
-                <a class="text-white" href="#">FAQs</a>
-                <span class="px-3">|</span>
-                <a class="text-white" href="#">Help</a>
-            </div>
-            <p class="m-0">&copy; <a class="text-white font-weight-bold" href="#">Domain Name</a>. All Rights Reserved. Designed by <a class="text-white font-weight-bold" href="https://htmlcodex.com">HTML Codex</a>
-            </p>
-        </div>
+            <!-- End sliding sidebar -->
+        </div> <!-- /.tt-section-inner -->
     </div>
-    <!-- Footer End -->
-
-    <!-- Scroll to Bottom -->
-    <i class="fa fa-2x fa-angle-down text-white scroll-to-bottom"></i>
-
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-outline-dark px-0 back-to-top"><i class="fa fa-angle-double-up"></i></a>
+    <!-- End tt-section -->
 
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="{% static 'lib/typed/typed.min.js' %}"></script>
-    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
-    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
-    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
-    <script src="{% static 'lib/isotope/isotope.pkgd.min.js' %}"></script>
-    <script src="{% static 'lib/lightbox/js/lightbox.min.js' %}"></script>
+</div>
+<!-- End page content -->
 
-    <!-- Contact Javascript File -->
-    <script src="{% static 'mail/jqBootstrapValidation.min.js' %}"></script>
-    <script src="{% static 'mail/contact.js' %}"></script>
 
-    <!-- Template Javascript -->
-    <script src="{% static 'js/main.js' %}"></script>
-</body>
+{% endblock content %}
 
-</html>
+

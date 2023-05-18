@@ -1,0 +1,231 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div id="page-header" class="ph-cap-lg ph-ghost-scroll ph-image-cropped ph-image-cover-2 ph-content-parallax">
+    <div class="page-header-inner tt-wrap">
+
+        <!-- Begin page header image
+        ============================= -->
+        <div class="ph-image">
+            <div class="ph-image-inner">
+                <img src="{% if contact.img_header %}{{ contact.img_header.url }}{% else %}{% static 'img.png' %}{% endif %}" alt="Image">
+            </div>
+        </div>
+        <!-- End page header image -->
+
+        <!-- Begin page header caption
+        ===============================
+        Use class "max-width-*" to set caption max width if needed. For example "max-width-1000". More info about helper classes can be found in the file "helper.css' %}".
+        -->
+        <div class="ph-caption">
+            <div class="ph-caption-subtitle">
+                <div class="ph-appear">Fikr-Mulohazalar</div>
+            </div>
+            <h1 class="ph-caption-title">
+                <div class="ph-appear">Aloqa</div>
+            </h1>
+            <div class="ph-caption-title-ghost">
+                <div class="ph-appear">Aloqa</div>
+            </div>
+        </div>
+        <!-- End page header caption -->
+
+    </div> <!-- /.page-header-inner -->
+
+    <!-- Begin scroll down (you can change "data-offset" to set scroll top offset)
+    ======================= -->
+    <div class="tt-scroll-down">
+        <a class="tt-sd-inner ph-appear" data-offset="0">
+            <div class="tt-sd-arrow">
+                <div class="tt-sd-arrow-inner"></div>
+            </div>
+            <div class="tt-sd-text">Scroll</div>
+        </a>
+    </div>
+    <!-- End scroll down -->
+
+</div>
+
+<div id="page-content">
+
+
+    <!-- =======================
+    ///// Begin tt-section /////
+    ============================
+    * You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css' %}".
+    -->
+    <div class="tt-section">
+        <div class="tt-section-inner tt-wrap">
+
+            <div class="tt-row tt-lg-row-reverse">
+                <div class="tt-col-lg-4">
+
+                    <div class="tt-heading margin-bottom-8-p anim-fadeinup">
+                        <!-- <h3 class="tt-heading-subtitle text-gray">Subtitle</h3> -->
+                        <h2 class="tt-heading-title">Fikr-Mulohazalar</h2>
+                        <!-- You can use <br> to break a text line if needed -->
+                    </div>
+                    <!-- End tt-Heading -->
+
+                    <div class="text-gray anim-fadeinup">
+                        <p>
+                            {% if contact.contact_about %}
+                            {{ contact.contact_about }}
+                            {% else %}
+                            Savol va Takliflaringiz bo'lsa shu sahifadan yoki boshqa ijtimoiy tarmoqlardan Xabar
+                            yuborishingiz munkin.
+                            {% endif %}
+                        </p>
+                    </div>
+
+                    <!-- Begin contact info
+                    ======================== -->
+                    <ul class="tt-contact-info padding-bottom-40 anim-fadeinup">
+                        <li>
+                            <span class="tt-ci-icon"><i class="fas fa-map-marker-alt"></i></span>
+                            {% if contact.location %}
+                            {% else %}
+                            Samarqand shahar,Amir Temur ko'chasi 224, Uzbekistan
+                            {% endif %}
+                        </li>
+                        <li>
+                            <span class="tt-ci-icon"><i class="fas fa-phone"></i></span>
+                            {% if contact.number %}
+                            <a href="tel:{{ contact.number }}" class="tt-link">{{ contact.number }}</a>
+                            {% else %}
+                            <a href="tel:+998886134044" class="tt-link">+998 88 613 40 44</a>
+                            {% endif %}
+                        </li>
+                        <li>
+                            <span class="tt-ci-icon"><i class="fa-brands fa-telegram"></i></span>
+                            {% if contact.name %}
+                            <a href="{{ contact.link }}" class="tt-link">{{ contact.name }}</a>
+                            {% else %}
+                            <a href="https://t.me/AIisheyx" class="tt-link">@Ali_Haqberdiyev</a>
+                            {% endif %}
+                        </li>
+                        <li>
+                            <h6 class="no-margin-bottom margin-top-40">Follow:</h6>
+                            <!-- Begin social buttons -->
+                            <div class="social-buttons">
+                                <ul>
+
+
+                                    {% if base %}
+                                    {% for i in base.network.all %}
+                                    <li><a href="{{ i.link }}" class="magnetic-item" target="_blank" rel="noopener"><i
+                                            class="{{ i.icon }}"></i></a></li>
+                                    {% endfor %}
+                                    {% endif %}
+
+                                </ul>
+                            </div>
+                            <!-- End social buttons -->
+                        </li>
+                    </ul>
+                    <!-- End contact info -->
+
+                </div> <!-- /.tt-col -->
+
+                <div class="tt-col-lg-1">
+                </div> <!-- /.tt-col -->
+
+                <div class="tt-col-lg-7">
+
+                    <form method="post" id="tt-contact-form" class="tt-form-filled anim-fadeinup">{% csrf_token %}
+
+
+                        <div class="tt-row">
+                            <div class="tt-col-md-6">
+
+                                <div class="tt-form-group">
+                                    <label>Ism <span class="required">*</span></label>
+                                    <input class="tt-form-control" type="text" name="name" placeholder="" required>
+                                </div>
+
+                            </div> <!-- /.tt-col -->
+
+                            <div class="tt-col-md-6">
+
+                                <div class="tt-form-group">
+                                    <label>Email Manzil <span class="required"></span></label>
+                                    <input class="tt-form-control" type="email" name="email" placeholder="" required>
+                                </div>
+
+                            </div> <!-- /.tt-col -->
+                        </div> <!-- /.tt-row -->
+
+                        <div class="tt-form-group">
+                            <label>Mavzu<span class="required"></span></label>
+                            <input class="tt-form-control" type="text" name="subject" placeholder="" required>
+                        </div>
+
+                        <div class="tt-form-group">
+                            <label>Variantni tanlang <span class="required">*</span></label>
+                            <select class="tt-form-control" name="option" required>
+                                <option value="" disabled selected>Iltimos, variantni tanlang</option>
+                                <option value="Fikr-Mulohaza">Fikr-Mulohaza</option>
+                                <option value="Ijobiy">Ijobiy</option>
+                                <option value="Salbiy">Salbiy</option>
+                                <option value="Ish">Ish</option>
+                                <option value="Shaxsiy">Shaxsiy</option>
+                            </select>
+                        </div>
+
+                        <div class="tt-form-group">
+                            <label>Xabar <span class="required">*</span></label>
+                            <textarea class="tt-form-control" rows="5" name="message" placeholder=""
+                                      required></textarea>
+                        </div>
+
+                        <small class="tt-form-text"><em>Yulduzcha (*) bilan belgilangan maydonlar to'ldirish shart!</em></small>
+
+                        <button type="submit" class="tt-btn tt-btn-primary margin-top-30">
+                            <div data-hover="Send Message">Xabarni Yuborish</div>
+                            <span class="tt-btn-icon"><i class="fas fa-paper-plane"></i></span>
+                        </button>
+                    </form>
+                    <!-- End form -->
+
+                </div> <!-- /.tt-col -->
+            </div> <!-- /.tt-row -->
+
+        </div> <!-- /.tt-section-inner -->
+    </div>
+    <!-- End tt-section -->
+
+
+    <!-- =======================
+    ///// Begin tt-section /////
+    ============================
+    * You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css' %}".
+    -->
+    <div class="tt-section padding-bottom-xlg-150">
+        <div class="tt-section-inner tt-wrap">
+
+            <!-- Begin page nav
+            ====================
+            * Use class "tt-pn-center" to align page nav to center.
+            * Use class "tt-pn-stroke" to enable title stroke style.
+            -->
+            <div class="tt-page-nav tt-pn-stroke">
+                <a href="{% url 'homepage' %}" class="tt-pn-link anim-fadeinup"
+                   data-cursor="<i class='fas fa-arrow-right'></i>">
+                    <div class="tt-pn-title">Portfolio</div>
+                    <div class="tt-pn-hover-title">Portfolio</div>
+                </a> <!-- /.tt-pn-link -->
+                <div class="tt-pn-subtitle anim-fadeinup">Bajarilgan ishlar</div>
+            </div>
+            <!-- End page nav -->
+
+        </div> <!-- /.tt-section-inner -->
+    </div>
+    <!-- End tt-section -->
+
+
+</div>
+
+{% endblock content %}

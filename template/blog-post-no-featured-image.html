@@ -1,0 +1,349 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load social_share %}
+{% load tag %}
+
+{% block content %}
+
+
+<div id="page-header" class="ph-cap-sm ph-ghost-scroll ph-image-cover-6 ph-content-parallax">
+    <div class="page-header-inner tt-wrap">
+
+        <!-- Begin page header image
+        ============================= -->
+        <div class="ph-image">
+            <div class="ph-image-inner">
+                <img src="{{ detail.img.url }}" alt="Image">
+
+            </div>
+        </div>
+        <!-- End page header image -->
+
+        <!-- Begin page header caption
+        ===============================
+        Use class "max-width-*" to set caption max width if needed. For example "max-width-1000". More info about helper classes can be found in the file "helper.css' %}".
+        -->
+        <div class="ph-caption max-width-1000">
+            <div class="ph-categories ph-appear">
+                <a href="{% url 'categories' detail.category.id %}" class="ph-category">{{ detail.category }}</a>
+            </div>
+            <h1 class="ph-caption-title">
+                <div class="ph-appear">{{ detail.name }}</div> <!-- You can use <br> to break a text line if needed -->
+            </h1>
+            <div class="ph-caption-title-ghost">
+                <div class="ph-appear">{{ detail.name }}</div>
+            </div>
+            <div class="ph-meta">
+                <div class="ph-appear">
+                    <span class="ph-meta-published">{{ detail.created }}</span>
+                    <span class="ph-meta-posted-by">by: {% for i in detail.coloborator.all %}<a href="{{ i.link }}"
+                                                                                                target="_blank"
+                                                                                                title="View all posts by John Doe">{{ i.name }}: {% endfor %}</a></span>
+                </div>
+            </div> <!-- /.ph-meta --><br>
+        </div>
+        <!-- End page header caption -->
+
+    </div> <!-- /.page-header-inner -->
+
+
+
+</div>
+<!-- End page header -->
+
+
+<!-- *************************************
+*********** Begin page content ***********
+************************************** -->
+<div id="page-content">
+
+
+    <!-- =======================
+    ///// Begin tt-section /////
+    ============================
+    * You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css' %}".
+    -->
+    <div class="tt-section">
+        <div class="tt-section-inner tt-wrap max-width-900">
+
+            <!-- Begin blog post
+            ===================== -->
+            <article class="tt-blog-post lightgallery">
+
+                <!-- Begin blog post content -->
+                <div class="tt-blog-post-content">
+                    <p>
+                        {{ detail.description | safe }}
+                    </p>
+                </div>
+                <!-- End blog post content -->
+
+                <!-- Begin blog post tags -->
+                <div class="tt-blog-post-tags">
+                    <ul>
+                        <li><span>Tags:</span></li>
+
+                        {% for i in detail.tag.all %}
+                        <li><a href="{% url 'tagname' i.pk %}">{{ i.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </article>
+            <!-- End blog post -->
+
+
+
+            <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                  <div class="carousel-item active">
+                      <img src="{{ detail.img.url }}" class="d-block w-100" alt="...">
+                  </div>
+                {% for i in detail.portfoliomedia_set.all %}
+                 <div class="carousel-item">
+                      <img src="{{ i.img.url }}" class="d-block w-100" alt="...">
+                </div>
+                {% endfor %}
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+
+
+            <!-- Begin post comments
+            ========================= -->
+            <div id="tt-blog-post-comments">
+
+                <h4 class="tt-bpc-heading">{{ detail.comment_set.all | length }} Izohlar:</h4>
+
+                <!-- Begin tt-Comments list
+                ============================ -->
+                <ul class="tt-comments-list">
+                    {% for i in detail.comment_set.all %}
+                    <!-- Begin tt-comment -->
+                    <li class="tt-comment">
+                        <a class="tt-comment-avatar">
+                            <img src="{% static 'assets/img/default/anonm_user.jpg' %}"
+                                 data-src="{% static 'assets/img/default/anonm_user.jpg' %}" class="tt-lazy"
+                                 alt="image">
+                        </a>
+                        <div class="tt-comment-body">
+                            <div class="tt-comment-meta">
+                                <h4 class="tt-comment-heading"><a>{{ i.user }}</a></h4>
+                                <span class="tt-comment-time">{{ i.created | vaqt }} oldin</span>
+                            </div>
+                            <div class="tt-comment-text">
+                                <p>{{ i.body }}</p>
+                            </div> <!-- /.tt-comment-text -->
+                        </div> <!-- /.tt-comment-body -->
+                    </li>
+                    <!-- End tt-comment -->
+                    {% endfor %}
+
+                </ul>
+                <!-- End tt-Comments list -->
+
+                <!-- Begin post comment form (Note: post comment form is for design purposes only!)
+                =============================
+                * Use class "tt-form-filled" or "tt-form-minimal" to change form style.
+                * Use class "tt-form-sm" or "tt-form-lg" to change form size (no class = default size).
+                -->
+                <form action="{% url 'addcomment' detail.pk %}" id="tt-post-comment-form"
+                      class="tt-form-filled anim-fadeinup">{% csrf_token %}
+                    <h4 class="tt-post-comment-form-heading">Izoh qoldirish:</h4>
+                    <div class="tt-row">
+                        <div class="tt-col-lg-6">
+
+                            <div class="tt-form-group">
+                                <label>Ism <span class="required">*</span></label>
+                                <input class="tt-form-control" id="84990245" type="text" placeholder="" required
+                                       name="name">
+                            </div>
+
+                        </div> <!-- /.col -->
+
+                        <div class="tt-col-lg-6">
+
+                            <div class="tt-form-group">
+                                <label>Email manzil <span class="small text-gray">(Optional)</span></label>
+                                <input class="tt-form-control" id="19833520" type="email" placeholder="" name="email">
+                            </div>
+
+                        </div> <!-- /.col -->
+                    </div> <!-- /.row -->
+
+                    <div class="tt-form-group">
+                        <label>Izoh <span class="required">*</span></label>
+                        <textarea class="tt-form-control" id="30945381" rows="6" placeholder="" required
+                                  name="comment"></textarea>
+                    </div>
+
+
+                    <!-- Begin post comment submit button -->
+                    <button type="submit" class="tt-btn tt-btn-primary margin-top-30">
+                        <div data-hover="Post Comment">Izoh qoldirish</div>
+                        <span class="tt-btn-icon"><i class="fas fa-paper-plane"></i></span>
+                    </button>
+                    <!-- End post comment submit button -->
+
+                </form>
+                <!-- End post comment form -->
+
+            </div>
+            <!-- End post comments -->
+
+
+            <!-- Begin sliding sidebar
+            ===========================
+            * Use class "tt-ss-right" to align sidebar to right.
+            -->
+            <div class="tt-sliding-sidebar-wrap">
+               <div class="tt-sliding-sidebar">
+                    <div class="tt-sliding-sidebar-inner">
+
+                        <!-- Begin sidebar widget -->
+                        <div class="sidebar-widget sidebar-search">
+                            <h3 class="sidebar-heading">Qidiruv</h3>
+
+
+                            <form action="{% url 'search' %}">{% csrf_token %}
+                                <div class="tt-form-btn-inside">
+                                    <input class="tt-form-control" type="text" id="search"
+                                           placeholder="Biror narsani yozing va Enter tugmasini bosing" required
+                                           name="search">
+                                    <button type="submit"><i class="fas fa-search"></i></button>
+                                </div>
+                            </form>
+                            <!-- End form -->
+
+                        </div>
+                        <!-- End sidebar widget -->
+
+                        <!-- Begin sidebar widget -->
+                        <div class="sidebar-widget sidebar-categories">
+                            <h3 class="sidebar-heading">Categories</h3>
+                            <ul class="list-unstyled">
+                                {% for i in category %}
+                                <li><a href="{% url 'categories' i.pk %}">{{ i.name }} <span
+                                        title="Entries in this category">{{ i.portfolio_set.all | length }}</span></a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <!-- End sidebar widget -->
+
+                        <!-- Begin sidebar widget -->
+                        <div class="sidebar-widget sidebar-post-list">
+                            <!-- Can be "Recent Posts" or "Popular Posts" etc. -->
+                            <h3 class="sidebar-heading">Popular Posts</h3>
+                            <ul class="list-unstyled">
+                                {% for i in popular %}
+                                <li>
+                                    <div class="sidebar-post-data">
+                                        <h5 class="sidebar-post-title"><a href="{% url 'detail_post' i.pk %}"
+                                                                          style="font-size: 25px">{{ i.name }}</a></h5>
+                                        <span class="sidebar-post-author">By: {% for x in i.coloborator.all %}<a
+                                                href="{% url 'author' x.pk %}">{{ x.name }}</a>, &nbsp {% endfor %}</span>
+                                        <span class="sidebar-post-date">{{ i.created | vaqt }} oldin</span>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <!-- End sidebar widget -->
+
+                        <!-- Begin sidebar widget -->
+                        <div class="sidebar-widget sidebar-comments-list">
+                            <h3 class="sidebar-heading">Recent Comments</h3>
+                            <ul class="list-unstyled">
+                                {% for t in comment %}<hr>
+                                <li class="sidebar-comment">
+                                    <div class="sidebar-comment-meta">
+                                        <div class="sidebar-comment-data">
+                                            <span class="sidebar-comment-author"><a href="{% url 'detail_post' t.post.pk %}">{{ t.user }}</a></span>
+                                            <span class="sidebar-comment-date">{{ t.created }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="sidebar-comment-text">
+                                        {{ t.body | slice:":50" }}
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <!-- End sidebar widget -->
+
+                        <!-- Begin sidebar widget -->
+                        <div class="sidebar-widget sidebar-tags">
+                            <h3 class="sidebar-heading">Tags</h3>
+                            <div class="sidebar-tags-list">
+                                <ul>
+                                    {% for i in tag %}
+                                    <li><a href="{% url 'tagname' i.pk %}">#{{ i.name }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div> <!-- /.sidebar-tags-list -->
+                        </div>
+                        <!-- End sidebar widget -->
+
+                    </div> <!-- /.tt-sliding-sidebar-inner -->
+                </div> <!-- /.tt-sliding-sidebar -->
+
+                <!-- Begin sliding sidebar trigger -->
+                <div class="tt-sliding-sidebar-trigger hide-cursor">
+                    <span class="tt-ss-icon"><i class="fas fa-bars"></i></span>
+                    <span class="tt-ss-icon-close"><i class="fas fa-times"></i></span>
+                </div>
+                <!-- End sliding sidebar trigger -->
+
+                <!-- Close overlay -->
+                <div class="tt-sliding-sidebar-close cursor-close"></div>
+
+            </div>
+            <!-- End sliding sidebar -->
+
+        </div> <!-- /.tt-section-inner -->
+    </div>
+    <!-- End tt-section -->
+
+
+    <!-- =======================
+    ///// Begin tt-section /////
+    ============================
+    * You can use padding classes if needed. For example "padding-top-xlg-150", "padding-bottom-xlg-150", "no-padding-top", "no-padding-bottom", etc. Note that each situation may be different and each section may need different classes according to your needs. More info about helper classes can be found in the file "helper.css' %}".
+    -->
+    <div class="tt-section padding-bottom-xlg-150">
+        <div class="tt-section-inner tt-wrap">
+
+            <!-- Begin page nav
+            ====================
+            * Use class "tt-pn-center" to align page nav to center.
+            * Use class "tt-pn-stroke" to enable title stroke style.
+            -->
+            <div class="tt-page-nav tt-pn-stroke">
+                <a href="{% url 'homepage' %}" class="tt-pn-link anim-fadeinup"
+                   data-cursor="<i class='fas fa-arrow-right'></i>">
+                    <div class="tt-pn-title">Portfolio</div>
+                    <div class="tt-pn-hover-title">Portfolio</div>
+                </a> <!-- /.tt-pn-link -->
+                <div class="tt-pn-subtitle anim-fadeinup">Selected Works</div>
+            </div>
+            <!-- End page nav -->
+
+        </div> <!-- /.tt-section-inner -->
+    </div>
+    <!-- End tt-section -->
+
+
+</div>
+<!-- End page content -->
+
+
+
+
+{% endblock content %}
