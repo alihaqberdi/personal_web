@@ -1,6 +1,7 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 from django.urls import reverse
+from django.contrib.sessions.models import Session
 
 
 # Create your models here.
@@ -74,6 +75,27 @@ class Portfolio(models.Model):
     def get_absolute_url(self):
         return reverse('detail_post', args=[str(self.id)])
 
+    def increment_view_count(self, request):
+        session_key = request.session.session_key
+        if not session_key:
+            request.session.create()
+            session_key = request.session.session_key
+        session = Session.objects.get(session_key=session_key)
+        if not self.postview_set.filter(session=session):
+            self.view += 1
+            self.save()
+
+            PostView.objects.create(post=self, session=session)
+
+
+class PostView(models.Model):
+    post = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
+    session = models.ForeignKey(Session, on_delete=models.CASCADE)
+    
+
+    def __str__(self):
+        return self.post
+
 
 class Index(models.Model):
     title1 = models.CharField(max_length=60, blank=True, null=True)
@@ -129,6 +151,7 @@ class Contact_msg(models.Model):
     option = models.CharField(choices=Option, max_length=30)
     message = models.TextField()
 
+
 class Contact(models.Model):
     img_header = models.ImageField()
     contact_about = models.CharField(max_length=800)
@@ -145,7 +168,3 @@ class PortfolioMedia(models.Model):
 
     def __str__(self):
         return self.portfolio.name
-
-
-
-

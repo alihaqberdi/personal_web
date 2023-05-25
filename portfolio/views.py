@@ -1,7 +1,5 @@
 from django.db.models import Q, Count
 from django.views import View
-from hitcount.utils import get_hitcount_model
-from hitcount.views import HitCountMixin
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
@@ -71,15 +69,10 @@ def Search(request):
 
 def Detail_Post(request, pk):
     obj = get_object_or_404(Portfolio, pk=pk)
-    hit_count = get_hitcount_model().objects.get_for_object(obj)
-    hit_count_response = HitCountMixin.hit_count(request, hit_count)
+    obj.increment_view_count(request)
     tag = Tag.objects.all()
     popular = Portfolio.objects.order_by('-view')[:5]
     commented_portfolios = Comment.objects.order_by('-created')[:5]
-    if hit_count_response.hit_counted:
-        hit_count.hits += 1
-        obj.view += 1
-        obj.save()
     categor = Category.objects.all()
     context = {
         "detail": obj,

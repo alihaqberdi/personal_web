@@ -12,8 +12,8 @@
         ============================= -->
         <div class="ph-image">
             <div class="ph-image-inner">
-                <img src="{% if home.head_img %} {{ home.head_img.url }} {% else %}{% static 'assets/img/demo/ph-demo.png' %}{% endif %}"
-                     alt="Image">
+               <a href="{% url 'homepage' %}">  <img src="{% if home.head_img %} {{ home.head_img.url }} {% else %}{% static 'assets/img/demo/ph-demo.png' %}{% endif %}"
+                     alt="Image"></a>
             </div>
         </div>
 
