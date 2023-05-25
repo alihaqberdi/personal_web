@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os.path
 from pathlib import Path
+import environ
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-30rx+_-eel^5ag6kj1_jg1xe&o8feocb3&v&-81gj%d*p_=1ox'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS=['*']
 
 
 # Application definition
@@ -81,11 +84,13 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase1',
-    }
+    'default':
+        {
+            'ENGINE': env('ENGINE'),
+            'NAME': env('NAME'),
+         }
 }
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -111,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tashkent'
 
 USE_I18N = True
 
@@ -121,8 +126,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 # ckeditor
-CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
-CKEDITOR_UPLOAD_PATH = "uploads/ckeditor"
+CKEDITOR_BASEPATH = env('CKEDITOR_BASEPATH')
+CKEDITOR_UPLOAD_PATH = env('CKEDITOR_UPLOAD_PATH')
 
 STATIC_URL = '/static/'
 if DEBUG:

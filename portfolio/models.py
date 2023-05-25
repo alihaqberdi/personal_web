@@ -2,6 +2,7 @@ from django.db import models
 from ckeditor.fields import RichTextField
 from django.urls import reverse
 from django.contrib.sessions.models import Session
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -76,12 +77,14 @@ class Portfolio(models.Model):
         return reverse('detail_post', args=[str(self.id)])
 
     def increment_view_count(self, request):
+        print('bu ishladi')
         session_key = request.session.session_key
         if not session_key:
             request.session.create()
             session_key = request.session.session_key
         session = Session.objects.get(session_key=session_key)
         if not self.postview_set.filter(session=session):
+            print('session bo\'lmagan holat ishladi')
             self.view += 1
             self.save()
 
@@ -91,10 +94,9 @@ class Portfolio(models.Model):
 class PostView(models.Model):
     post = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
-    
 
     def __str__(self):
-        return self.post
+        return self.post.name
 
 
 class Index(models.Model):
@@ -138,7 +140,7 @@ class About(models.Model):
     description = RichTextField()
 
 
-class Contact_msg(models.Model):
+class Contact_Message(models.Model):
     Option = (
         ('fikr', 'Fikr-Mulohaza'),
         ('ijobiy', 'Ijobiy'),
@@ -150,6 +152,11 @@ class Contact_msg(models.Model):
     email = models.EmailField()
     option = models.CharField(choices=Option, max_length=30)
     message = models.TextField()
+    created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+
+
+    def __str__(self):
+        return self.name
 
 
 class Contact(models.Model):

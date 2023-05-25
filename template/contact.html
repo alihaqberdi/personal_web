@@ -135,7 +135,7 @@
 
                 <div class="tt-col-lg-7">
 
-                    <form method="post" id="tt-contact-form" class="tt-form-filled anim-fadeinup">{% csrf_token %}
+                    <form action="{% url 'contact' %}" method="post" class="tt-form-filled anim-fadeinup">{% csrf_token %}
 
 
                         <div class="tt-row">
@@ -167,11 +167,11 @@
                             <label>Variantni tanlang <span class="required">*</span></label>
                             <select class="tt-form-control" name="option" required>
                                 <option value="" disabled selected>Iltimos, variantni tanlang</option>
-                                <option value="Fikr-Mulohaza">Fikr-Mulohaza</option>
-                                <option value="Ijobiy">Ijobiy</option>
-                                <option value="Salbiy">Salbiy</option>
-                                <option value="Ish">Ish</option>
-                                <option value="Shaxsiy">Shaxsiy</option>
+                                <option value="fikr">Fikr-Mulohaza</option>
+                                <option value="ijobiy">Ijobiy</option>
+                                <option value="salbiy">Salbiy</option>
+                                <option value="ish">Ish</option>
+                                <option value="shaxsiy">Shaxsiy</option>
                             </select>
                         </div>
 

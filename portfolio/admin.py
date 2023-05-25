@@ -5,7 +5,7 @@ from django.contrib.sessions.models import Session
 
 
 admin.site.unregister([User, Group])
-admin.site.register([Network, Index, BaseNetwork, Category, Tag, About, Session, PostView])
+admin.site.register([Network, Index, BaseNetwork, Category, Tag, About, Session, PostView, Contact])
 
 
 class AdminPortfolioMedia(admin.TabularInline):
@@ -18,8 +18,9 @@ class AdminPortfolio(admin.ModelAdmin):
     list_editable = ['view']
     inlines = [AdminPortfolioMedia]
 
-
-
+@admin.register(Contact_Message)
+class AdminContact(admin.ModelAdmin):
+    list_display = ['name', 'option', 'created']
 
 @admin.register(Comment)
 class AdminComment(admin.ModelAdmin):

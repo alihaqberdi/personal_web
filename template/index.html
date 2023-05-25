@@ -19,7 +19,7 @@
 
         <div class="ph-caption">
             <div class="ph-caption-subtitle">
-                <div class="ph-appear">{% if home.title1 %} {{ home.title1 }} {% else %} Powerful {% endif %}</div>
+                <div class="ph-appear">{% if home.title1 %} {{ home.title1 }} {% else %} Powerful {% endif %}{% if user.is_authenticated %}<br> <a href="{% url 'admin:index' %}">admin</a> {% endif %}</div>
             </div>
             <h1 class="ph-caption-title">
                 <div class="ph-appear">{% if home.title2 %} {{ home.title2 }} {% else %} MRIT {% endif %}</div>
@@ -194,8 +194,7 @@
                     <div class="tt-pn-title">{% if home.title_footer %}{{ home.title_footer }}{% else %}--> Buyurtma
                         <--{% endif %}
                     </div>
-                    <div class="tt-pn-hover-title">{% if home.title_footer_hover %}{{ home.title_footer_hover }}{% else
-                        %}Aloqaga chiqish{% endif %}
+                    <div class="tt-pn-hover-title">{% if home.title_footer_hover %}{{ home.title_footer_hover }}{% else %}Aloqaga chiqish{% endif %}
                     </div>
                 </a> <!-- /.tt-pn-link -->
                 <div class="tt-pn-subtitle anim-fadeinup">{% if home.subtitle %}{{ home.subtitle }}{% else %}Siz ham

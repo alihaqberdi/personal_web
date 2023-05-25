@@ -2,8 +2,9 @@ from django.db.models import Q, Count
 from django.views import View
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
+from django.views.generic import CreateView
 
-from .models import Index, Base, Portfolio, Network, Comment, Category, Tag, About, Contact
+from .models import Index, Base, Portfolio, Network, Comment, Category, Tag, About, Contact, Contact_Message
 from django.core.paginator import Paginator
 
 
@@ -161,8 +162,16 @@ class ContactView(View):
             'contact': obj
         }
         return render(request, 'contact.html', context)
+
     def post(self, request):
+        data = request.POST
+        print(data)
+        Contact_Message.objects.create(name=data['name'],
+                                   email=data['email'],
+                                   option=data['option'],
+                                   message=data['message'])
         return redirect('contact')
+
 
 def error_404(request, exception):
     return render(request, '404.html')
