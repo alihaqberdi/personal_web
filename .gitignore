@@ -1,7 +1,6 @@
 venv
 
 .env
-mydatabase2
 # Created by https://www.gitignore.io
 
 ### OSX ###
